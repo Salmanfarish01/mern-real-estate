@@ -74,12 +74,13 @@ export default function Profile() {
         e.preventDefault();
         try {
             dispatch(updateUserStart());
+            const dataToSubmit = { ...formData, avatar: formData.avatar || currentUser.avatar }; // Include the avatar if available
             const res = await fetch(`/api/user/update/${currentUser._id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(dataToSubmit),
             });
             const data = await res.json();
             if (data.success === false) {
